@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my_network
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - 8000:8080
+    networks:
+      - my_network
+
+
+networks:
+  my_network:
+    driver: bridge

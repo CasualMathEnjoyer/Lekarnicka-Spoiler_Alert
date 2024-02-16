@@ -1,0 +1,11 @@
+# backup text files
+*.bak
+
+# PyCharm's local mess
+*.idea
+
+
+*.pyc
+.ipynb_checkpoints/
+video_for_presentation/
+demo/dataset_2*

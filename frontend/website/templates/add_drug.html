@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}Add Drug{% endblock %}
+
+
+{% block links %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Add new drug to aid kit</h2>
+
+
+    <form action="/recognize_all" method="post" enctype="multipart/form-data" onsubmit="showSpinner()">
+<!--        EAN SCANNER       -->
+        <div class="row mx-auto mt-4 form-group d-flex justify-content-center">
+            <div class="mb-2 col-md-1">
+                <div class="form-control-plaintext" id="staticEmail2">Name: </div>
+            </div>
+            <div class="mx-sm-3 mb-2 col-md-4">      
+             <input type="text" class="form-control" value="{{ text_name1 }}" name="input_name1" id="input_name1" placeholder="Name of drug">
+            </div>
+            <div class="mb-2 col-md-4 form-row">        
+                <input class="w-100" type="file" name="name_file" id="name_file">           
+            </div>
+        </div>
+    
+<!--        <div class="row mx-auto mt-4 form-group d-flex justify-content-center">-->
+<!--            <div class="mb-2 col-md-1">-->
+<!--                <div class="form-control-plaintext" id="staticEmail2">Name2: </div>-->
+<!--            </div>-->
+<!--            <div class="mx-sm-3 mb-2 col-md-4">      -->
+<!--                <input type="text" class="form-control" value="{{ text_name2 }}" name="input_name2" placeholder="Name of drug">-->
+<!--            </div>-->
+<!--            <div class="mb-2 col-md-4 form-row">        -->
+<!--                <input class="w-100" type="file" name="name_file2" id="name_file2">            -->
+<!--            </div>-->
+<!--        </div>-->
+<!--    -->
+<!--        EXPIRACY SCANNER     -->
+        <div class="row mx-auto form-group d-flex justify-content-center">
+            <div class="mb-2 col-md-1">
+                <div class="form-control-plaintext">Expiracy: </div>
+            </div>
+            <div class="mx-sm-3 mb-2 col-md-4">      
+              <input type="text" class="form-control" value="{{ text_expiracy }}" name="input_expiracy" placeholder="Date of Expiracy">
+            </div>
+            <div class="mb-2 col-md-4 form-row">        
+                <input class="w-100" type="file" name="expiracy_file" id="expiracy_file">            
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center">
+                <!--        ANALYSE BUTTON      -->
+                <input type="submit" class="btn btn-success" name="action_analyse" value="Analyse photos">
+                <!--          SAVE BUTTON       -->
+                <button type="submit" class="btn btn-primary" name="action_send">SUBMIT</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="spinner-border text-primary" role="status" id="loading" style="display: none;">
+    <!-- you uncomment this to get also text -->
+    <!-- <span class="sr-only">Loading...</span> -->
+    </div>
+
+         
+<!--   
+    <form action="/recognize_all" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <input type="file" id="imageUpload" name="imageUpload" accept="image/*" onchange="displayImage(event)">
+            </div>
+            <div class="col-md-6 mb-3">
+                <input type="submit" value="Send" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container mt-4">
+    <a href="/camera" class="btn btn-primary"><i class="fas fa-camera"></i> Open Cam</a>
+</div>
+-->
+
+{% if error != "" %}
+    {% if error == 1 %}
+        <div class="container mt-4">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h6>Data missing in formular!</h6>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% elif error == 2 %}
+        <div class="container mt-4">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h6>Drug {{text_name1}} {{text_name2}} with expiracy {{text_expiracy}} detected.</h6>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% elif error == 3 %}
+        <div class="container mt-4">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h6>Not allowed file format!</h6>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% elif error == 4 %}
+        <div class="container mt-4">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h6>Drug name or expiracy not detected, please try again.</h6>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% elif error == 5 %}
+        <div class="container mt-4">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h6>Something went wrong.</h6>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% elif error == 6 %}
+        <div class="container mt-4">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h6>Date in the wrong format, try writing it as day.moth.year</h6>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% else %}
+        <div class="container mt-4">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h6>Drug {{text_name1}} {{text_name2}} with expiracy {{text_expiracy}} saved.</h6>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock script %}

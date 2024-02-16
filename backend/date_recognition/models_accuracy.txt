@@ -1,0 +1,8 @@
+Accuracy Table:
+Recog 		 Detect 	 Accuracy
+crnn_vgg16_bn 	 db_resnet50 	 71.43%
+crnn_vgg16_bn 	 db_mobilenet_v3_large 	 19.64%
+crnn_mobilenet_v3_small 	 db_resnet50 	 64.29%
+crnn_mobilenet_v3_small 	 db_mobilenet_v3_large 	 17.86%
+crnn_mobilenet_v3_large 	 db_resnet50 	 66.07%
+crnn_mobilenet_v3_large 	 db_mobilenet_v3_large 	 19.64%

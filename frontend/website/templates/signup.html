@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+
+
+{% block links %}
+{% endblock %}
+
+{% block content %}
+<div class="container my-8 center">
+    <form method="POST">
+        <h3 class="my-4" align="center">Sign Up</h3>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="name@adress.com">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" name="password1" id="password1" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password Again</label>
+            <input type="password" class="form-control" name="password2" id="password2" placeholder="Password Again">
+        </div>
+        <div align="center">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+    </form>
+</div>
+
+{% if error != "" %}
+    <div class="container mt-4">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h6>{{ error }}</h6>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,7 @@
+1) inštalácia balíčkov python-doctr, weasyprint
+2) pri problémoch nutné skontrolovať, či v premenných prostrediach v premennej Path existuje cesta ku GTK3
+3) ak nie, nutná inštalácia GTK3
+4) ak áno, nutné presunúť ju úplne nahor
+
+Podľa informácií o GTK3 by malo byť podporovaný iba  64-bitový windows 11, to sa ale zatiaľ nepotvrdilo 
+ako nutnosť.
